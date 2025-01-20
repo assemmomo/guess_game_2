@@ -1,5 +1,5 @@
 let num = document.getElementsByClassName("num");
-let ip = document.getElementsByClassName("ip");
+let ip = document.querySelectorAll(".ip");
 let ul = document.querySelector(".ul");
 let check = document.querySelector(".check");
 let winDiv = document.querySelector(".winDiv");
@@ -7,7 +7,10 @@ let again = document.querySelector(".again");
 let none = document.getElementsByClassName("none");
 let matchTxt = document.querySelector(".matchTxt");
 let result = document.querySelector(".result");
-
+let attempts = document.querySelector(".attempts");
+let finalAttempts = document.querySelector(".finalAttempts");
+let finalAttempsNum = document.querySelector(".finalAttempsNum");
+let attemptsVar = 0;
 
 
 
@@ -22,16 +25,27 @@ num[2].innerHTML=randomNum3;
 const li = document.createElement("li");
 
 // check.addEventListener("click",
+
+let ipErorTime;
+
 function checked(){
-    if(ip[0].value==num[0].innerHTML && ip[1].value==num[1].innerHTML && ip[2].value==num[2].innerHTML){
+    if(ip[0].value == "" || ip[1].value == "" || ip[2].value == ""){
+        document.querySelector(".wrongDiv").style.display="block";
+        clearTimeout(ipErorTime);
+        ipErorTime = setTimeout(function(){
+            document.querySelector(".wrongDiv").style.display="none";
+        },2000)
+    }else if(ip[0].value==num[0].innerHTML && ip[1].value==num[1].innerHTML && ip[2].value==num[2].innerHTML){
         // console.log("yes yes yes")
-        
-        li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is All numbers are correct (you won)";
+        const lii = document.createElement("li");
+        attemptsVar++;
+        finalAttempsNum.innerHTML=attemptsVar;
+        lii.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"All numbers are correct (you won)";
         const h1 = document.createElement("p");
-        ul.appendChild(li);
+        ul.appendChild(lii);
         h1.innerHTML ="(3)";
         h1.style.color="green";
-        li.appendChild(h1);
+        lii.appendChild(h1);
         winDiv.style.top="-10%";
         num[0].style.display="block";
         num[1].style.display="block";
@@ -42,165 +56,90 @@ function checked(){
         matchTxt.innerHTML=num[0].innerHTML+num[1].innerHTML+num[2].innerHTML;
     }else if(ip[0].value==num[0].innerHTML && ip[1].value==num[1].innerHTML && ip[2].value!=num[2].innerHTML){
         // console.log("yes yes no")
-        // const li = document.createElement("li");
-        li.innerHTML=+"("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is Two correct numbers";
+        const lii = document.createElement("li");
+        attemptsVar++;
+        lii.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"Two correct numbers";
         const h1 = document.createElement("p");
-        ul.appendChild(li);
+        ul.appendChild(lii);
         h1.innerHTML ="(2)";
         h1.style.color="red";
-        li.appendChild(h1);
+        lii.appendChild(h1);
     }else if(ip[0].value!=num[0].innerHTML && ip[1].value==num[1].innerHTML && ip[2].value==num[2].innerHTML){
         // console.log("no yes yes")
-        // const li = document.createElement("li");
-        li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is Two correct numbers";
+        const lii = document.createElement("li");
+        attemptsVar++;
+        lii.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"Two correct numbers";
         const h1 = document.createElement("p");
-        ul.appendChild(li);
+        ul.appendChild(lii);
         h1.innerHTML ="(2)";
         h1.style.color="red";
-        li.appendChild(h1);
+        lii.appendChild(h1);
     }else if(ip[0].value==num[0].innerHTML && ip[1].value!=num[1].innerHTML && ip[2].value==num[2].innerHTML){
         // console.log("yes no yes")
-        // const li = document.createElement("li");
-        li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is Two correct numbers";
-        ul.appendChild(li);
+        const lii = document.createElement("li");
+        attemptsVar++;
+        lii.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"Two correct numbers";
+        ul.appendChild(lii);
         const h1 = document.createElement("p");
         h1.innerHTML ="(2)";
         h1.style.color="red";
-        li.appendChild(h1);
+        lii.appendChild(h1);
     }else if(ip[0].value!=num[0].innerHTML && ip[1].value!=num[1].innerHTML && ip[2].value==num[2].innerHTML){
         // console.log("no no yes")
-        // const li = document.createElement("li");
-        li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is one number is correct";
-        ul.appendChild(li);
+        const lii = document.createElement("li");
+        attemptsVar++;
+        lii.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"one number is correct";
+        ul.appendChild(lii);
         const h1 = document.createElement("p");
         h1.innerHTML ="(1)";
         h1.style.color="red";
-        li.appendChild(h1);
+        lii.appendChild(h1);
     }else if(ip[0].value==num[0].innerHTML && ip[1].value!=num[1].innerHTML && ip[2].value!=num[2].innerHTML){
         // console.log("yes no no")
-        // const li = document.createElement("li");
-        li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is one number is correct";
-        ul.appendChild(li);
+        const lii = document.createElement("li");
+        attemptsVar++;
+        lii.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"one number is correct";
+        ul.appendChild(lii);
         const h1 = document.createElement("p");
         h1.innerHTML ="(1)";
         h1.style.color="red";
-        li.appendChild(h1);
+        lii.appendChild(h1);
     }else if(ip[0].value!=num[0].innerHTML && ip[1].value==num[1].innerHTML && ip[2].value!=num[2].innerHTML){
         // console.log("no yes no")
-        // const li = document.createElement("li");
-        li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is one number is correct";
-        ul.appendChild(li);
+        const lii = document.createElement("li");
+        attemptsVar++;
+        lii.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"one number is correct";
+        ul.appendChild(lii);
         const h1 = document.createElement("p");
         h1.innerHTML ="(1)";
         h1.style.color="red";
-        li.appendChild(h1);
+        lii.appendChild(h1);
     }else if(ip[0].value!=num[0].innerHTML && ip[1].value!=num[1].innerHTML && ip[2].value!=num[2].innerHTML){
         // console.log("no no no")
-        // const li = document.createElement("li");
+        const lii = document.createElement("li");
+        attemptsVar++;
         const h1 = document.createElement("p");
         h1.innerHTML ="(0)";
         h1.style.color="red";
-        li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is no correct number in the right place";
-        li.appendChild(h1);
-        ul.appendChild(li);
+        lii.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"no correct number in the right place";
+        lii.appendChild(h1);
+        ul.appendChild(lii);
+    }
+    if (ip[0].value == num[1].innerHTML || ip[0].value == num[2].innerHTML || 
+        ip[1].value == num[0].innerHTML || ip[1].value == num[2].innerHTML || 
+        ip[2].value == num[0].innerHTML || ip[2].value == num[1].innerHTML) {
+        attemptsVar++;
+        const lii = document.createElement("li");
+        lii.classList.add("Wrongli");
+        lii.innerHTML += "(" + ip[0].value + ip[1].value + ip[2].value + ")" + " Some numbers are correct but in the wrong place";
+        const h1 = document.createElement("p");
+        h1.innerHTML = "(?)";
+        h1.style.color = "orange";
+        lii.style.border = "2px solid orange";
+        lii.appendChild(h1);
+        ul.appendChild(lii);
     }
 
-
-    // if(ip[0].value==num[2].innerHTML && ip[0].value==num[1].innerHTML && ip[0].value==num[0].innerHTML){
-    //     console.log("0=0 & 0=2 & 0=1")
-    //     li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is three number is correct but two numbers in the wrong place";
-    //     ul.appendChild(li);
-    //     const h1 = document.createElement("p");
-    //     h1.innerHTML ="(1)";
-    //     h1.style.color="blue";
-    //     li.appendChild(h1);
-    // } else if(ip[0].value==num[2].innerHTML && ip[0].value==num[1].innerHTML){
-    //     console.log("0=2 & 0=1")
-    //     li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is two number is correct but in the wrong place";
-    //     ul.appendChild(li);
-    //     const h1 = document.createElement("p");
-    //     h1.innerHTML ="(1)";
-    //     h1.style.color="blue";
-    //     li.appendChild(h1);
-    // }else if(ip[0].value==num[1].innerHTML || ip[0].value==num[2].innerHTML){
-    //     console.log("0=1")
-    //     // const li = document.createElement("li");
-    //     li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is one number is correct but in the wrong place";
-    //     ul.appendChild(li);
-    //     const h1 = document.createElement("p");
-    //     h1.innerHTML ="(1)";
-    //     h1.style.color="blue";
-    //     li.appendChild(h1);
-    // }
-
-    // if(ip[1].value==num[2].innerHTML && ip[1].value==num[1].innerHTML && ip[1].value==num[0].innerHTML){
-    //     console.log("1=1 & 1=2 & 1=0")
-    //     li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is three number is correct but two numbers in the wrong place";
-    //     ul.appendChild(li);
-    //     const h1 = document.createElement("p");
-    //     h1.innerHTML ="(1)";
-    //     h1.style.color="blue";
-    //     li.appendChild(h1);
-    // } else if(ip[1].value==num[2].innerHTML && ip[1].value==num[0].innerHTML){
-    //     console.log("1=2 & 1=0")
-    //     li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is two number is correct but in the wrong place";
-    //     ul.appendChild(li);
-    //     const h1 = document.createElement("p");
-    //     h1.innerHTML ="(1)";
-    //     h1.style.color="blue";
-    //     li.appendChild(h1);
-    // }else if(ip[1].value==num[0].innerHTML || ip[1].value==num[2].innerHTML){
-    //     console.log("1=0")
-    //     li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is one number is correct but in the wrong place";
-    //     ul.appendChild(li);
-    //     const h1 = document.createElement("p");
-    //     h1.innerHTML ="(1)";
-    //     h1.style.color="blue";
-    //     li.appendChild(h1);
-    // }
-    
-    // if(ip[2].value==num[2].innerHTML && ip[2].value==num[1].innerHTML && ip[2].value==num[0].innerHTML){
-    //     console.log("2=2 & 0=2 & 0=1")
-    //     li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is three number is correct but two numbers in the wrong place";
-    //     ul.appendChild(li);
-    //     const h1 = document.createElement("p");
-    //     h1.innerHTML ="(1)";
-    //     h1.style.color="blue";
-    //     li.appendChild(h1);
-    // }else if(ip[2].value==num[1].innerHTML && ip[2].value==num[0].innerHTML){
-    //     console.log("2=1 & 2=0")
-    //     li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is two number is correct but in the wrong place";
-    //     ul.appendChild(li);
-    //     const h1 = document.createElement("p");
-    //     h1.innerHTML ="(1)";
-    //     h1.style.color="blue";
-    //     li.appendChild(h1);
-    // }else if(ip[2].value==num[0].innerHTML || ip[2].value==num[1].innerHTML){
-    //     console.log("2=0")
-    //     li.innerHTML+="("+ip[0].value+ip[1].value+ip[2].value+")"+"  "+"There is one number is correct but in the wrong place";
-    //     ul.appendChild(li);
-    //     const h1 = document.createElement("p");
-    //     h1.innerHTML ="(1)";
-    //     h1.style.color="blue";
-    //     li.appendChild(h1);
-    // }
-
-
-
-
-    //##################################################################################################################################
-    // if(ip[0].value==num[2].innerHTML){
-    //     console.log("0=2")
-    // }
-   
-    // if(ip[1].value==num[2].innerHTML){
-    //     console.log("1=2")
-    // }
-    
-    // if(ip[2].value==num[1].innerHTML){
-    //     console.log("2=1")
-    // }
-    
     ip[0].focus();
     ip[0].value=" ";
     ip[1].value=" ";
@@ -251,3 +190,28 @@ document.body.addEventListener('keydown', function(event) {
         checked();
     }
 });
+
+ip.forEach(function(e){
+    e.onfocus=function(){
+        ip.forEach(function(s){
+            s.classList.remove("focus");
+        })
+        e.classList.add("focus");
+    }
+    e.onblur=function(){
+        e.classList.remove("focus");
+        e.placeholder="Guess";
+        e.backgroundColor="red";
+    }
+    setInterval(function(){
+        if(e.classList.contains("focus")){
+            e.placeholder=" ";
+        }else{
+            e.placeholder="Guess";
+        }
+    },100)
+})
+setInterval(function(){
+    attempts.innerHTML=attemptsVar;
+    finalAttempsNum.innerHTML=attemptsVar;
+},20)
